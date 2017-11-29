@@ -1,14 +1,9 @@
-### 什么是var, let, const ?
-这还要问,  变/常量声明的修饰符啊!
+### var, let, const 之间的区别
+本文大量参考阮老师的文字, 目的是精简提炼下也做个笔记备忘,也供大家参考!
 附上阮老师的文章自己看
 http://es6.ruanyifeng.com/#docs/let
 
-### 那么我要讲什么
-在讲var, let, const是什么的怎么用的文章一大把, 我在这也不赘述那么我要讲什么呢?
-虽然互联网上充斥了很多解释var, let, const 但是看完后也就泛泛的了解下, 所有我想写些例子做个备忘,也供大家参考!
-
 好开始撸了, 你们退开
-
 
 ```javascript
 var a = 1
@@ -54,8 +49,32 @@ if (true) {
 console.log(a) //throws Exception Uncaught ReferenceError: a is not defined
 console.log(b) // 2
 ```
-
 变量 b 被提升了, 而变量 a 其作用访问仅限于 if 语句块内
+
+```javascript
+let x = 1
+let y = 1
+let z = 1
+if (true) {
+  console.log(y) // 1
+ 
+  let z = 2
+  console.log(z) // 2
+ 
+  console.log(x) // throws Exception Uncaught ReferenceError: a is not defined
+  let x = 2
+}
+
+```
+// 在一个作用域类使用let const 声明变/常量之前, 变/常量是无法使用的这个叫做“暂时性死区”（temporal dead zone，简称 TDZ）
+
+```javascript
+var x = 1
+var x = 2
+let y = 1
+let y = 2 // throws Exception Uncaught SyntaxError: Identifier 'y' has already been declared
+```
+// 在一个作用域类使用let const 声明变/常量是不可以重复声明的
 
 ```javascript
 for (var x = 0; x < 10; x++) {
@@ -71,3 +90,4 @@ for (let x = 0; x < 10; x++) {
 }
 // 0 1 2 3 4 5 6 7 8 9
 ```
+**划重点: for循环还有一个特别之处，就是设置循环变量的那部分是一个父作用域，而循环体内部是一个单独的子作用域**
