@@ -13,7 +13,7 @@ a++
 console.log(a) // 2
 b++
 console.log(b) // 3
-// const 是一个产量变量的修饰符所以赋值后不能修改,  下面code 试图修改这个产量所以抛出异常
+// const 是一个产量变量的声明符所以赋值后不能修改,  下面code 试图修改这个产量所以抛出异常
 c++ // throws Exception Uncaught TypeError: Assignment to constant variable.
 ```
 从上面的代码可以看出用 const 声明的常量是只读的,一旦声明将无法修改
