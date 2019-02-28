@@ -63,7 +63,7 @@ targetNode.addEventListener('click', event => {
 }, false)
 
 // output: 'document - capture phase' > 'targetNode - capture phase' > 'targetNode - bubbling phase' 
-```javasrcipt
+```
 
 [更多stopPropagation 执行Demo][3]
 
