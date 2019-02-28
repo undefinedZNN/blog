@@ -13,6 +13,16 @@ document.addEventListener(event, function, useCapture)
 | function  | 必须。指定要事件触发时执行的函数。|
 | useCapture | 可选。布尔值，指定事件是否 在捕获或冒泡阶段执行。 |
 
+
+    其实 addEventListener 第三个参数时也可以使用对象.
+
+    在使用布尔值时false注册的事件在冒泡阶段(bubblingphase)执行,在使用true注册的事件在捕获阶段(capture phase)执行.
+
+    如果useCapture使用对象参数有三个属性
+        - capture:  布尔值，指定事件是否 在捕获或冒泡阶段执行。
+        - once:  布尔值，表示事件是否只能执行一次。
+        - passive:  布尔值，True永远不会调用 preventDefault()。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告。
+
 [详细的API文档][1]
 
 ----------
@@ -35,12 +45,16 @@ document.addEventListener(event, function, useCapture)
     通常我们使用Event的stopPropagation()和stopImmediatePropagation()方法阻止冒泡和捕获事件的派发.
     
     stopPropagation方法是阻止事件往下一个节点派发但是它不能阻止已注册事件在当前节点继续派发.
+    
+    stopImmediatePropagation方法是阻止事件往下一个事件继续派发.
+    
+[更多事件阻止Demo][3]
 
 ```javascript
 <table>
   <tr id="parent-node">
-    <td id="target-node"> click me </td>
-    <td></td>
+    <td id="target-node"> stopPropagation </td>
+    <td id="target-node-1"> stopImmediatePropagation </td>
   </tr>
 </table>
 
@@ -62,12 +76,22 @@ targetNode.addEventListener('click', event => {
   console.log('targetNode - bubbling phase')
 }, false)
 
-// output: 'document - capture phase' > 'targetNode - capture phase' > 'targetNode - bubbling phase' 
+// 点击 #target-node 输出: 'document - capture phase' > 'targetNode - capture phase' > 'targetNode - bubbling phase' 
+
+// 注册目标节点事件
+let targetNode1 = document.getElementById('target-node-1')
+targetNode1.addEventListener('click', event => {
+  event.stopImmediatePropagation()
+  console.log('targetNode1 - capture phase')
+}, true)
+targetNode1.addEventListener('click', event => {
+  console.log('targetNode1 - bubbling phase')
+}, false)
+
+// 点击 #target-node-1 输出: 'document - capture phase' > 'targetNode1 - capture phase' 
 ```
 
-[更多stopPropagation 执行Demo][3]
 
-
-  [1]: https://www.w3cschool.cn/jsref/met-document-addeventlistener.html
+  [1]: https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/addEventListener
   [2]: https://codepen.io/undefinedznn/pen/NJGxzy "事件流执行流程Demo"
   [3]: https://codepen.io/undefinedznn/pen/ywYJmp "stopPropagation&#40;&#41; 执行Demo"
