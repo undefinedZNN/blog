@@ -36,7 +36,7 @@ document.addEventListener(event, function, useCapture)
     
     stopPropagation方法是阻止事件往下一个节点派发但是它不能阻止已注册事件在当前节点继续派发.
 
-```javasrcipt
+```javascript
 <table>
   <tr id="parent-node">
     <td id="target-node"> click me </td>
