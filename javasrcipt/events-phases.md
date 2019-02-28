@@ -1,5 +1,4 @@
-# 事件流
-
+# 事件流深度分析
 ------
 
 ### 语法
@@ -14,7 +13,7 @@ document.addEventListener(event, function, useCapture)
 | useCapture | 可选。布尔值，指定事件是否 在捕获或冒泡阶段执行。 |
 
 
-    其实 addEventListener 第三个参数时也可以使用对象.
+    其实 addEventListener 第三个参数也可以使用对象.
 
     在使用布尔值时false注册的事件在冒泡阶段(bubblingphase)执行,在使用true注册的事件在捕获阶段(capture phase)执行.
 
